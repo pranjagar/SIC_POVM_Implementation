@@ -1,4 +1,5 @@
 import sympy as sym
+from sympy import pprint
 import math as m
 import numpy as np
 import scipy.optimize
@@ -218,8 +219,12 @@ def Equations_ortho_obj_fn(vars):                                # vars is the l
 # **************************The solving part************************************
 
 
+# Creating a list of delta_ii, ie. the inner products of the five vectors with themselves. To be used in the normalization equations in the solver.
+delta_five = []
+for i in range(9):
+    delta_five.append(np.vdot(five_lists[i], five_lists[i]))
+# print(delta_five)     # each elt is real, as it should be
 
-delta = [.5, .5, .5, .5, .5, .5, .5]
 
 
 # Define the function for the system of equations
@@ -230,8 +235,8 @@ def system_of_equations(vars):
     C83, C84, C85, C86, C87, C88, C89, \
     C93, C94, C95, C96, C97, C98, C99, \
     y3, y4, y5, y6, y7, y8, y9 = vars
-    global delta
-    delta_33, delta_44, delta_55, delta_66, delta_77, delta_88, delta_99 = delta
+    global delta_five
+    delta_11, delta_22, delta_33, delta_44, delta_55, delta_66, delta_77, delta_88, delta_99 = delta_five
 
     # Full set of 28 equations for Cij terms, based on previous interactions
     equations = [
