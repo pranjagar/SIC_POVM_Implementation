@@ -223,7 +223,7 @@ def Equations_ortho_obj_fn(vars):                                # vars is the l
 delta_five = []
 for i in range(9):
     delta_five.append(np.vdot(five_lists[i], five_lists[i]))
-# print(delta_five)     # each elt is real, as it should be
+print(delta_five)     # each elt is real, as it should be
 
 
 
