@@ -303,10 +303,10 @@ initial_guess = [0.2] * 15 + [-.2]*15 + [0.1] * 5
 solution = fsolve(system_of_equations, initial_guess)
 
 # Print the solution
-print("Solution to the system:", solution)
+# print("Solution to the system:", solution)
 
 # residues sum
 residuals = system_of_equations(solution)
 residuals_sum = np.sum(np.abs(residuals))
-print("Residuals:", residuals)
-print("Residuals sum:", residuals_sum)
+# print("Residuals:", residuals)
+# print("Residuals sum:", residuals_sum)
