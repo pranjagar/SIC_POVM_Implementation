@@ -19,6 +19,30 @@ POVM_vec = (1/(2**.5))*(np.array([[0,1,-1],[-1,0,1],[1,-1,0],[0,w,-w**2],[-1,0,w
     q2 = np.array(qutrit2)
     return np.vdot(q1,q2) """
 
+
+
+class POVM_relations:
+    def __init__(self, POVM_vec_list):
+        self.POVM_vec_list = POVM_vec_list
+        self.inner_products = {}
+    
+    def dot_product(self, i, j):
+        return np.vdot(self.POVM_vec_list[i], self.POVM_vec_list[j])
+
+    @property
+    def all(self):
+        if len(self.POVM_vec_list) != 9:
+            raise ValueError('The POVM list must have 9 elements')
+        for i in range(9):
+            for j in range(i, 9):
+                key = f'{i+1}{j+1}'
+                value = self.dot_product(i, j)
+                self.inner_products[key] = value
+                # if abs(value) < 1e-18:
+                    # self.inner_products[key] = 0
+        return self.inner_products
+
+
 # Another way, Creating a dictionary of pairs of Vector numbers and their inner product
 # POVM_vec_np = (1/(2**0.5)) * np.array(POVM_unnormalized)
 POVM_vec_np = np.array(POVM_unnormalized)
@@ -71,7 +95,7 @@ for j in range(1,10):
 # print('list of 5th entries (c52 is wrong, should be sqrt(15)/2): ',c5j_list)        # second entry is wrong here, careful
 
 #correct list, Second entry corrected from -1.1618 to root(15)/2 (see notebook)
-c5j_list = [-0.0, 1.936492 , 0.38729833462074165, (-0.38729833462074176-0.44721359549995776j), -0.19364916731037082, 0.5809475019311124, -0.38729833462074165, (-0.19364916731037093-0.4472135954999579j), 0.5809475019311124]
+c5j_list = [-0.0, np.sqrt(15)/2 , 0.38729833462074165, (-0.38729833462074176-0.44721359549995776j), -0.19364916731037082, 0.5809475019311124, -0.38729833462074165, (-0.19364916731037093-0.4472135954999579j), 0.5809475019311124]
 
 
 # creating List of first five entries, Used for creating full vector later
